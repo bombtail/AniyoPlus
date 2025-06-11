@@ -1,0 +1,81 @@
+// Root level build.gradle (project level)
+// This is part 1 of the AniyoPlus project dump
+
+buildscript {
+    ext {
+        kotlin_version = '1.8.22'
+        agp_version = '8.0.2'
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // for legacy dependencies
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// PART 2: Settings.gradle
+// Include subprojects
+include ':app'
+
+// PART 3: App-level build.gradle (app/build.gradle)
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.aniyoplus.app"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:1.12.0"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.9.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
+    implementation "com.github.bumptech.glide:glide:4.16.0"
+    kapt "com.github.bumptech.glide:compiler:4.16.0"
+    implementation "androidx.biometric:biometric:1.2.0-alpha05" // For fingerprint
+    // Any other libraries will go here
+}
+
+// PART 4: README.md
+// You’ll add a README.md explaining how to build the project and listing features (I'll provide that next)
+
+// NEXT: I'll start sending you the MainActivity.kt and other UI code like swipe tabs, themes, and stats logic
